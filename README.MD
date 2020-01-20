@@ -7,4 +7,5 @@ Funktioner:
 * Kopiera claiminfo
 * Skriva ut claim ersättningar
 
+Eftersom jag är trög får ni lägga bilderna i en mapp som heter suspendIcons på er desktop för att det skall fungera
 Säkert mer grejer..
