@@ -1,48 +1,20 @@
 #Persistent
 SetMouseDelay,-1
-global fileLoc = "C:\Users\"+%A_UserName%+"\Desktop\values.ini"
+global fileLoc := "C:\Users\" A_UserName "\Desktop\values.ini"
+
+
 
 ;Vars
-global clipVar = 0 ;Stores the clipboard
+global clipVar = 0 		;Stores the clipboard
 global readVar = 0 
 global placeHolderVar = 0 
-global csnOrder = 0	;HP Channel Services Network number
-global pobOrder = 0	;POBnummer
+global csnOrder = 0	    ;HP Channel Services Network number
+global pobOrder = 0		;POBnummer
 global partNo = 0   	;partnumber
-global hpSN = 0		;Serial number
-global hpPN = 0		;Product number
-global noDays = 7 ;Antal dagar att suspenda
+global hpSN = 0			;Serial number
+global hpPN = 0			;Product number
+global noDays = 7 		;Antal dagar att suspenda
 
-
-;########################################
-;Keybinds 
-;########################################
-
-;POB + olika hp nummer
-<!1::SendInput %pobOrder% ;Skriver ut pobNR
-<!2::SendInput %csnOrder% ;Skriver ut XC/TP nummer
-<!3::SendInput %partNo%	  ;Skriver ut HP part nummer
-<!z::SendInput %hpSN%	  ;Skriver ut HP Serienummer
-<!x::SendInput %hpPN%	  ;Skriver ut HP Produktnummer
-<!4::Clean()			  ;Tömmer ovan sparad data
-
-;Diverse pobgrejer
-^<:: SendInput %A_UserName%
-^q:: SendInput %A_YYYY%-%A_MM%-%A_DD% ;Skriver ut dagens datum
-^1:: Tomorrow()						  ;Skriver ut morgondagens datum
-^2:: DayAfterTomorrow()				  ;Skriver ut dagen efter imorgons datum
-^3:: ThreeDaysFromNow()				  ;Skriver ut om 3 dagars datum
-^l:: SuspOneWeek("leverans")		  ;Suspendar ärende som leverans från 3:e part
-^i:: SuspOneWeek("komplettering")	  ;Suspendar ärende som information från 3:e part
-^k:: SuspOneWeek("kund")			  ;Suspendar ärende som information från kund
-^.:: SuspOneWeek("levKund")			  ;Suspendar ärende som leverans från kund
-^SC01A:: SuspOneWeek("återkoppling")  ;Suspendar ärende som återkoppling/uppföljning (SC01A = Å)
-^SPACE:: SendInput {enter}			  ;Trycker på enter
-
-;Claim 
-^Numpad1::SendInput 1153.75
-^Numpad2::SendInput 1108.75
-^Numpad3::SendInput 428.75
 
 
 OnClipboardChange("Main")
@@ -65,8 +37,8 @@ TrimSpace(){
 
 ClassifyInput(clipIn){
 ;CSN
-	if(RegExMatch(clipIn, "((?!^[LPHUVGSD])[A-Z]{2}?[0-9]{8})") != 0){
-		RegExMatch(clipIn, "((?!^[LPHUVGSD])[A-Z]{2}?[0-9]{8})", csnOrder)
+	if(RegExMatch(clipIn, "((?!^[PHUVGSD])[A-Z]{2}?[0-9]{8})") != 0){
+		RegExMatch(clipIn, "((?!^[PHUVGSD])[A-Z]{2}?[0-9]{8})", csnOrder)
 		SaveData(csnOrder, "CSN")	
 				
 	}
@@ -234,7 +206,7 @@ ClaimCopy(){
 		if WinActive("Print Details - Internet Explorer"){
 										;102432766-VGR-GOTKON5 																XC33494606   102432766-VGR-GOTKON5				
 			if((RegExMatch(clipboard, "(\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?)"))){
-				if(StrLen(clipboard)<40){			
+				if(StrLen(clipboard)<35){			
 					newClip = %csnOrder%   %clipVar%
 					clipboard := newClip
 				}
@@ -306,3 +278,35 @@ ClickOK(){
 	}
 
 }
+
+
+
+;########################################
+;Keybinds 
+;########################################
+
+;POB + olika hp nummer
+<!1::SendInput %pobOrder% ;Skriver ut pobNR
+<!2::SendInput %csnOrder% ;Skriver ut XC/TP nummer
+<!3::SendInput %partNo%	  ;Skriver ut HP part nummer
+<!z::SendInput %hpSN%	  ;Skriver ut HP Serienummer
+<!x::SendInput %hpPN%	  ;Skriver ut HP Produktnummer
+<!4::Clean()			  ;Tömmer ovan sparad data
+
+;Diverse pobgrejer
+^<:: SendInput %A_UserName%
+^q:: SendInput %A_YYYY%-%A_MM%-%A_DD% ;Skriver ut dagens datum
+^1:: Tomorrow()						  ;Skriver ut morgondagens datum
+^2:: DayAfterTomorrow()				  ;Skriver ut dagen efter imorgons datum
+^3:: ThreeDaysFromNow()				  ;Skriver ut om 3 dagars datum
+^l:: SuspOneWeek("leverans")		  ;Suspendar ärende som leverans från 3:e part
+^i:: SuspOneWeek("komplettering")	  ;Suspendar ärende som information från 3:e part
+^k:: SuspOneWeek("kund")			  ;Suspendar ärende som information från kund
+^.:: SuspOneWeek("levKund")			  ;Suspendar ärende som leverans från kund
+^SC01A:: SuspOneWeek("återkoppling")  ;Suspendar ärende som återkoppling/uppföljning (SC01A = Å)
+^SPACE:: SendInput {enter}			  ;Trycker på enter
+
+;Claim 
+^Numpad1::SendInput 1153.75
+^Numpad2::SendInput 1108.75
+^Numpad3::SendInput 428.75
