@@ -89,11 +89,15 @@ ClassifyInput(clipIn){
 	}
 }
 Main(){
+	if (DllCall("IsClipboardFormatAvailable", "Uint", 1) OR DllCall("IsClipboardFormatAvailable", "Uint", 13)) ; If no text was copied:
+	{
 	IniRead, partNo, %fileLoc%, section1, HPPART
 	IniRead, pobOrder, %fileLoc%, section1, POB
 	IniRead, csnOrder, %fileLoc%, section1, CSN
+
 	TrimSpace()
 	ClaimCopy()
+	}
 }
 
 
