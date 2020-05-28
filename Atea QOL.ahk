@@ -31,6 +31,9 @@ TrimSpace(){
 	else{
 		clipboard := Trim(clipboard, OmitChars := " 	")
 		clipVar := clipboard
+		if(clipVar = 73099887){
+			clipboard :="HP73099887"
+		}
 		ClassifyInput(clipVar)
 	}
 }
@@ -212,7 +215,9 @@ ClaimCopy(){
 			if((RegExMatch(clipboard, "(\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?)"))){
 				if(StrLen(clipboard)<35){			
 					newClip = %csnOrder%   %clipVar%
-					clipboard := newClip
+					if(RegExMatch(newClip, "((?!^[PHUVGSD])[A-Z]{2}?[0-9]{8})   (\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?))")){
+						clipboard := newClip
+					}
 				}
 			}
 			
