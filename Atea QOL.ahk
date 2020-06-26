@@ -122,9 +122,10 @@ Tomorrow(){
 		tomorrow += 01, days
 		FormatTime, tomorrow, %tomorrow%, yyyy-MM-dd
 		SendInput %tomorrow%
+		LiftAllKeys()
+		return
 	}
-	LiftAllKeys()
-	return
+
 }
 
 DayAfterTomorrow(){
