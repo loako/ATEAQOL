@@ -111,10 +111,18 @@ Clean(){
 }
 
 Tomorrow(){
-	tomorrow = %a_now%
-	tomorrow += 01, days
-	FormatTime, tomorrow, %tomorrow%, yyyy-MM-dd
-	SendInput %tomorrow%
+	
+	TodaysDDDD := A_DDDD
+	StringLower, TodaysDDDD, TodaysDDDD
+	if(TodaysDDDD == "friday" ||TodaysDDDD == "fredag"){
+		ThreeDaysFromNow()
+	}
+	else{
+		tomorrow = %a_now%
+		tomorrow += 01, days
+		FormatTime, tomorrow, %tomorrow%, yyyy-MM-dd
+		SendInput %tomorrow%
+	}
 	LiftAllKeys()
 	return
 }
