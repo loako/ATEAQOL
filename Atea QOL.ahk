@@ -218,19 +218,32 @@ ReqETA(){
 
 ClaimCopy(){
 	
+
 	SetTitleMatchMode, 1
 		if WinActive("Print Details - Internet Explorer"){
-										;102432766-VGR-GOTKON5 																XC33494606   102432766-VGR-GOTKON5				
+																													
 			if((RegExMatch(clipboard, "(\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?)"))){
-				if(StrLen(clipboard)<35){			
+				if(StrLen(clipboard)<30){			
 					newClip = %csnOrder%   %clipVar%
-					if(RegExMatch(newClip, "((?!^[PHUVGSD])[A-Z]{2}?[0-9]{8})   (\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?))")){
-						clipboard := newClip
-					}
+					clipboard := newClip
 				}
 			}
 			
 		}
+
+	; SetTitleMatchMode, 1
+	; 	if WinActive("Print Details - Internet Explorer"){
+	; 									;102432766-VGR-GOTKON5 																XC33494606   102432766-VGR-GOTKON5				
+	; 		if((RegExMatch(clipboard, "(\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?)"))){
+	; 			if(StrLen(clipboard)<35){			
+	; 				newClip = %csnOrder%   %clipVar%
+	; 				if(RegExMatch(newClip, "((?!^[PHUVGSD])[A-Z]{2}?[0-9]{8})   (\b10)([0-9]{7})(\b-)([A-Z]{3,4}(\b-)([A-Z]{6})([0-9]{1,2})?))")){
+	; 					clipboard := newClip
+	; 				}
+	; 			}
+	; 		}
+			
+	; 	}
 }
 
 
